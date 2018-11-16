@@ -1,4 +1,4 @@
-"""TODO
+"""This is a demo wrapper for quntoken. It has performance issues!
 """
 
 import subprocess
