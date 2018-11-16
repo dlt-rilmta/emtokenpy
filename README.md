@@ -1,5 +1,7 @@
 # README
 
+Python wrapper for [quntoken](https://github.com/dlt-rilmta/quntoken).
+
 ## Requirements
 
 * OS: linux x86-64
