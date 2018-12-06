@@ -1,16 +1,17 @@
-"""This is a demo wrapper for quntoken. It has performance issues!
+"""Python wrapper for quntoken.
 """
 
-import subprocess
-import os
-import tempfile
+
+import sys
+from quntoken.quntoken import tokenize
+
 
 class EmTokenPy:
     def __init__(self, source_fields=None, target_fields=None):
 
         # Field names for e-magyar TSV
         if source_fields is None:
-            source_fields = {}
+            source_fields = set()
 
         if target_fields is None:
             target_fields = []
@@ -20,23 +21,11 @@ class EmTokenPy:
 
     def process_sentence(self, sen, field_names):
         sen = '\n'.join([x[0] for x in sen])
-        with tempfile.NamedTemporaryFile(mode='w') as fh:
-            fh.write(sen)
-            fh.flush()
-            cmd = '{0} -f vert {1}'.format(os.path.join(os.path.dirname(__file__), 'bin', 'quntoken'), fh.name)
-            res = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE).stdout
-        res = res.decode(encoding='utf-8')
-        res = [[x] for x in res.split('\n')]
-        # remove unnecessary empty strings from the end of sentences
-        count = 0
-        for i in res[::-1]:
-            if i == ['']:
-                count += 1
-            else:
-                break
-        while count > 0:
-            res.pop()
-            count -= 1
+        cmd = ['preproc', 'snt', 'sntcorr', 'sntcorr', 'token', 'convtsv']
+        out, err = tokenize(cmd, sen)
+        if err:
+            print(err, sys.stderr)
+        res = [[x] for x in out.split('\n')]
         return res
 
     def prepare_fields(self, field_names):
