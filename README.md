@@ -18,9 +18,5 @@ make all
 
 ## Usage
 
-
-```sh
-make all
-```
 Please refer to [e-magyar-tsv](https://github.com/dlt-rilmta/e-magyar-tsv) for
 usage.
