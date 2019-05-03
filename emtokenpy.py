@@ -10,6 +10,8 @@ from quntoken.quntoken import tokenize
 
 
 class EmTokenPy:
+    pass_header = True
+
     def __init__(self, source_fields=None, target_fields=None):
 
         # Field names for e-magyar TSV
