@@ -4,9 +4,7 @@
 """Python wrapper for quntoken.
 """
 
-
-import sys
-from quntoken.quntoken import tokenize
+from .quntoken.quntoken import tokenize
 
 
 class EmTokenPy:
